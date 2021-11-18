@@ -1,0 +1,6 @@
+Middleware is a function that has acces to req res cycle and can modify it
+
+Address  - Sent from client to server
+We will generate this
+Take address and use a goecoder pull parts of it and also  get latitude and longitutde  
+We have a location field GeoJSON field
