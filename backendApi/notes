@@ -4,3 +4,45 @@ Address  - Sent from client to server
 We will generate this
 Take address and use a goecoder pull parts of it and also  get latitude and longitutde  
 We have a location field GeoJSON field
+
+Error handling  
+https://expressjs.com/en/guide/error-handling.html
+Yeh pura padhne ka jab padhega next niche mae writing error handlers
+For errors returned from asynchronous functions invoked by route handlers and middleware, 
+you must pass them to the next() function, where Express will catch and process them. For example:
+
+app.get('/', function (req, res, next) {
+  fs.readFile('/file-does-not-exist', function (err, data) {
+    if (err) {
+      next(err) // Pass errors to Express.
+    } else {
+      res.send(data)
+    }
+  })
+})
+
+or 
+
+exports.updateBootcamp = async (req,res,next) => {
+    try{
+        //Moongoose function returns a promise thus asynchornous 
+        const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id,req.body,{
+            new:true,
+            runValidators:true
+        });
+
+        //Catch only works if the id is not formatted in the right way or not provided 
+        //If the correctly formatted id does'nt exist in the database 
+        if(!bootcamp){
+            res.status(400).json({success:false});
+        }
+
+        res.status(201).json({
+            success:'true',
+            data:bootcamp
+        }); 
+    }catch(err){
+        next(Err);
+    }
+ }
+

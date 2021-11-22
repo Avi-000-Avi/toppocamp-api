@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const colors = require('colors');
 
 const connectDB = require('./config/db');
-
+const errorHandler = require('./middleware/error');
 
 dotenv.config({path:'./config/config.env'});
 
@@ -17,9 +17,9 @@ const bootcamps = require('./routes/bootcamps');
 
 const app = express();
 
-//Body Parser
+//Body Parser -- extracts the entire body portion of an incoming request stream and exposes it on req.body.
 app.use(express.json());
- 
+
 //Dev loggin middleware
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
@@ -27,6 +27,14 @@ if(process.env.NODE_ENV === 'development'){
 
 //Mount router
 app.use('/api/v1/bootcamps',bootcamps); 
+
+//Mount router
+app.use('/api/v1/bootcamps',bootcamps); 
+
+
+
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
