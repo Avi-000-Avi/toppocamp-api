@@ -11,10 +11,6 @@ dotenv.config({path:'./config/config.env'});
 //Connect to database
 connectDB();
 
-//Route files
-const bootcamps = require('./routes/bootcamps');
-
-
 const app = express();
 
 //Body Parser -- extracts the entire body portion of an incoming request stream and exposes it on req.body.
@@ -24,6 +20,11 @@ app.use(express.json());
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
+
+//Route files
+const bootcamps = require('./routes/bootcamps');
+
+
 
 //Mount router
 app.use('/api/v1/bootcamps',bootcamps); 
