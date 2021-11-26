@@ -46,3 +46,4 @@ exports.updateBootcamp = async (req,res,next) => {
     }
  }
 
+See what is destructuring and spread operator
