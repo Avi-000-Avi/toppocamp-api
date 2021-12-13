@@ -3,8 +3,10 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
+
 
 dotenv.config({path:'./config/config.env'});
 
@@ -15,6 +17,9 @@ const app = express();
 
 //Body Parser -- extracts the entire body portion of an incoming request stream and exposes it on req.body.
 app.use(express.json());
+
+//Cookie parser
+app.use(cookieParser());
 
 //Dev loggin middleware
 if(process.env.NODE_ENV === 'development'){
@@ -27,10 +32,14 @@ app.use(fileupload());
 // Route files
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
+const auth = require('./routes/auth');
+
 
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/auth', auth);
+
 
 app.use(errorHandler);
 
@@ -46,3 +55,5 @@ process.on('unhandledRejection',(err,promise) => {
     //Close server & exit processs
     server.close(() =>  process.exit(1));
 })
+
+
