@@ -1,6 +1,6 @@
 # Toppocamp API
 
-> Backend API for Toppocamp Application which is a bootcamp directory websitre
+> Backend for Bootcamp Application which is a bootcamp directory website
 
 ## Bootcamps
 
